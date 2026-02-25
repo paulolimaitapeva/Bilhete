@@ -32,13 +32,21 @@
             .badge-wrapper {
                 page-break-inside: avoid !important;
                 break-inside: avoid !important;
-                margin-bottom: 5mm !important;
+                margin-bottom: 0 !important;
+                padding-top: 10mm !important;
+                padding-bottom: 10mm !important;
                 display: flex !important;
                 justify-content: center !important;
             }
+            .html2pdf__page-break {
+                display: block;
+                height: 0;
+                page-break-after: always;
+                break-after: always;
+            }
             @page {
                 size: A4;
-                margin: 10mm 5mm;
+                margin: 0;
             }
         }
     </style>

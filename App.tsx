@@ -44,8 +44,8 @@ const App: React.FC = () => {
     setIsGeneratingPDF(true);
     setActiveTab('preview');
     
-    // Pequena pausa para garantir que o DOM está pronto
-    await new Promise(r => setTimeout(r, 1000));
+    // Pequena pausa para garantir que o DOM está pronto e estilos aplicados
+    await new Promise(r => setTimeout(r, 800));
     
     const element = document.getElementById('badges-to-print');
     if (!element) {
@@ -55,12 +55,13 @@ const App: React.FC = () => {
     }
 
     const opt = {
-      margin: [10, 5, 10, 5],
+      margin: 0, // Margens controladas pelo CSS/Wrapper para evitar cortes
       filename: `SESI_Crachas_${Date.now()}.pdf`,
-      image: { type: 'png' }, // PNG é mais estável
+      image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { 
         scale: 2, 
         useCORS: true, 
+        letterRendering: true,
         backgroundColor: '#ffffff',
         logging: false 
       },
@@ -69,10 +70,12 @@ const App: React.FC = () => {
     };
 
     try {
-      await html2pdf().set(opt).from(element).save();
+      // Cria uma instância do html2pdf
+      const worker = html2pdf().set(opt).from(element);
+      await worker.save();
     } catch (err) {
-      console.error(err);
-      alert("Falha no download automático. Use o botão 'Imprimir no Navegador'.");
+      console.error("Erro na geração do PDF:", err);
+      alert("Falha no download automático. Tente novamente ou use 'Imprimir no Navegador'.");
     } finally {
       setIsGeneratingPDF(false);
     }
@@ -184,11 +187,17 @@ const App: React.FC = () => {
               </div>
             </div>
             
-            <div id="badges-to-print" className="bg-white flex flex-col items-center">
+            <div id="badges-to-print" className="bg-white flex flex-col items-center w-full">
               {cards.map((card, idx) => (
-                <div key={card.id} className="badge-wrapper py-6 w-full flex justify-center bg-white">
-                  <IDCard data={card} />
-                </div>
+                <React.Fragment key={card.id}>
+                  <div className="badge-wrapper py-6 w-full flex justify-center bg-white">
+                    <IDCard data={card} />
+                  </div>
+                  {/* Adiciona quebra de página a cada 3 crachás para A4 */}
+                  {(idx + 1) % 3 === 0 && idx !== cards.length - 1 && (
+                    <div className="html2pdf__page-break w-full h-0"></div>
+                  )}
+                </React.Fragment>
               ))}
             </div>
           </div>
