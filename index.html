@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BadgeMaster Pro - Gerador de Crachás</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        @media print {
+            body {
+                background: white !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            #badges-to-print {
+                display: block !important;
+                width: 210mm !important;
+                margin: 0 auto !important;
+                padding: 0 !important;
+                background: white !important;
+            }
+            .badge-wrapper {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                margin-bottom: 5mm !important;
+                display: flex !important;
+                justify-content: center !important;
+            }
+            @page {
+                size: A4;
+                margin: 10mm 5mm;
+            }
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "xlsx": "https://esm.sh/xlsx@0.18.5",
+    "@google/genai": "https://esm.sh/@google/genai@^1.42.0"
+  }
+}
+</script>
+</head>
+<body class="bg-slate-50 min-h-screen">
+    <div id="root"></div>
+</body>
+</html>
