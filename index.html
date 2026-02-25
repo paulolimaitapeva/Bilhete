@@ -40,9 +40,9 @@
 
         <!-- Tabs Navigation -->
         <div class="tabs no-print flex">
-            <button class="tab-btn active" data-tab="upload">1. Importar</button>
-            <button class="tab-btn" data-tab="review" disabled>2. Revisar</button>
-            <button class="tab-btn" data-tab="preview" disabled>3. Visualizar</button>
+            <button id="btn-show-upload" class="tab-btn active" data-tab="upload">1. Importar</button>
+            <button id="btn-show-review" class="tab-btn" data-tab="review" disabled>2. Revisar</button>
+            <button id="btn-show-preview" class="tab-btn" data-tab="preview" disabled>3. Visualizar</button>
         </div>
 
         <!-- Section: Upload -->
@@ -130,7 +130,8 @@
         }
     </style>
 
-    <script type="module" src="main.js"></script>
+    <script src="services/dataProcessor.js"></script>
+    <script src="main.js"></script>
 </body>
 
 </html>

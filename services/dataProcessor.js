@@ -60,7 +60,7 @@ const normalizePTBR = (text) => {
         .join(' ');
 };
 
-export const parseExcelFile = (buffer) => {
+window.parseExcelFile = (buffer) => {
     // Nota: O objeto XLSX deve estar disponível globalmente ou via import
     const workbook = XLSX.read(buffer, {
         type: 'array',
